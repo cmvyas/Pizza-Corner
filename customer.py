@@ -4,9 +4,9 @@ from PIL import ImageTk,Image
 root = Tk()
 root.title("Pizza Corner!")
 root.geometry("800x500")
-root.iconbitmap('C:/Users/user/Documents/GitHub/Pizza-Corner/images/pizza.ico')
+root.iconbitmap('images/pizza.ico')
 
-myImg=ImageTk.PhotoImage(Image.open("C:/Users/user/Documents/GitHub/Pizza-Corner/images/Welll.png"))
+myImg=ImageTk.PhotoImage(Image.open("images/Welcome.png"))
 my_label =Label(root,image=myImg)
 my_label.pack(pady=10,padx=10)
 
