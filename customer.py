@@ -1,5 +1,12 @@
 from tkinter import *
 from PIL import ImageTk,Image
+import os
+import sys 
+
+
+
+
+
 
 root = Tk()
 root.title("Pizza Corner!")
@@ -12,10 +19,20 @@ my_label.pack(pady=10,padx=10)
 
 frame=LabelFrame(root,text='WELCOME!',font='Lora',padx=180,pady=50,bd=4)
 frame.pack()
-Order_Pizza=Button(frame, text='Order Pizza',height=2,width=14,bd=4,bg='#7ea04d',activebackground='#7ea04d')
 
-Cancel_Order=Button(frame, text='Cancel Order ',height=2,width=14,bd=4,bg='#7ea04d',activebackground='#7ea04d')
-Track_Order=Button(frame, text='Track Order ',height=2,width=14,bd=4,bg='#7ea04d',activebackground='#7ea04d')
+def connectOrder():
+	os.system('python order.py')
+
+Order_Pizza=Button(frame, text='Order Pizza',height=2,width=14,bd=4,bg='#7ea04d',activebackground='#7ea04d',command=connectOrder)
+
+
+def cancelOrder():
+	os.system('python cancel.py')
+Cancel_Order=Button(frame, text='Cancel Order ',height=2,width=14,bd=4,bg='#7ea04d',activebackground='#7ea04d',command=cancelOrder)
+
+def trackOrder():
+	os.system('python Track.py')
+Track_Order=Button(frame, text='Track Order ',height=2,width=14,bd=4,bg='#7ea04d',activebackground='#7ea04d',command=trackOrder)
 myLabel1=Label(frame,text="  ")
 myLabel2=Label(frame,text="  ")
 
