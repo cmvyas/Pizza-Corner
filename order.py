@@ -40,10 +40,9 @@ free4=Label(frame,text="   ").grid(row=8,column=1)
 e=Entry(frame).grid(row=8,column=2)
 freerow5=Label(frame,text="").grid(row=9,column=0)
 
-free5=Label(frame,text="   ").grid(row=10,column=0)
+free5=Label(frame,text="").grid(row=10,column=0)
 free5=Label(frame,text="").grid(row=10,column=1)
 
 Order_Pizza=Button(frame, text='Order',height=1,width=8,bd=4,bg='#7ea04d',activebackground='#7ea04d').grid(row=10,column=2)
-
 
 root.mainloop()
