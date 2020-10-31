@@ -10,7 +10,8 @@ import sys
 
 root = Tk()
 root.title("Vendor")
-root.geometry("800x540")
+root.geometry("800x540+200+50")
+root.resizable(False,False)
 root.iconbitmap('images/pizza.ico')
 
 myImg=ImageTk.PhotoImage(Image.open("images/Welcome.png"))
@@ -38,6 +39,11 @@ myLabel2=Label(frame,text="  ")
 
 Pending_Order=Button(frame, text='Pending Order ',height=2,width=14,bd=4,bg='#7ea04d',activebackground='#7ea04d')
 myLabel3=Label(frame,text="  ")
+
+
+
+
+
 
 New_Order.grid(row=0, column=0)
 myLabel1.grid(row=0,column=1)

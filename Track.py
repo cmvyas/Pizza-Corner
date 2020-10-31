@@ -3,7 +3,8 @@ from PIL import ImageTk,Image
 
 root = Tk()
 root.title("Pizza Corner!")
-root.geometry("800x540")
+root.resizable(False,False)
+root.geometry("800x540+200+50")
 root.iconbitmap('images/pizza.ico')
 
 myImg=ImageTk.PhotoImage(Image.open("images/Welcome.png"))
