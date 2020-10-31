@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk,Image
+from tkinter import messagebox
 
 root = Tk()
 root.title("Pizza Corner!")
@@ -24,8 +25,10 @@ freerow=Label(frame,text=' ').grid(row=1,column=0)
 
 free5=Label(frame,text="").grid(row=2,column=0)
 free5=Label(frame,text="").grid(row=2,column=1)
+def Cancel():
+    response= messagebox.showinfo("track","Your order is pending,will be served soon")
+  
 
-
-Cancel_Pizza=Button(frame, text='Track',height=1,width=12,bd=4,bg='#7ea04d',activebackground='#7ea04d').grid(row=2,column=2)
+Cancel_Pizza=Button(frame, text='Track',height=1,width=12,bd=4,bg='#7ea04d',command=Cancel,activebackground='#7ea04d').grid(row=2,column=2)
 
 root.mainloop()
