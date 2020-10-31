@@ -3,11 +3,6 @@ from PIL import ImageTk,Image
 import os
 import sys 
 
-
-
-
-
-
 root = Tk()
 root.title("Vendor")
 root.geometry("800x540+200+50")

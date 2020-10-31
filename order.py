@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk,Image
-
+from tkinter import messagebox
 root = Tk()
 root.title("Pizza Corner!")
 root.geometry("800x540+200+50")
@@ -42,7 +42,9 @@ freerow5=Label(frame,text="").grid(row=9,column=0)
 
 free5=Label(frame,text="").grid(row=10,column=0)
 free5=Label(frame,text="").grid(row=10,column=1)
+def order():
+    response= messagebox.showinfo("Order","Your order will be served soon")
 
-Order_Pizza=Button(frame, text='Order',height=1,width=8,bd=4,bg='#7ea04d',activebackground='#7ea04d').grid(row=10,column=2)
+Order_Pizza=Button(frame, text='Order',height=1,width=8,bd=4,bg='#7ea04d',activebackground='#7ea04d',command=order).grid(row=10,column=2)
 
 root.mainloop()

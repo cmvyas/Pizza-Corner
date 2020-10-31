@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk,Image
-
+from tkinter import messagebox
 root = Tk()
 root.title("Pizza Corner!")
 root.resizable(False,False)
@@ -27,8 +27,19 @@ freerow2=Label(frame,text=" ").grid(row=3,column=0)
 
 free5=Label(frame,text=" ").grid(row=4,column=0)
 free5=Label(frame,text="").grid(row=4,column=1)
+def cancel():
+    response= messagebox.askyesno("Cancel Order","Do you want to cancel your Order ?")
+    if response==1:
+        free5=Label(frame,text=" ").grid(row=5,column=0)
+        free5=Label(frame,text="").grid(row=5,column=1)
+        messagebox.showinfo("","Cancelled Successfully")
+    else :
+        free5=Label(frame,text=" ").grid(row=5,column=0)
+        free5=Label(frame,text="").grid(row=5,column=1)
+        messagebox.showerror("","Try Again")
 
-Cancel_Pizza=Button(frame, text='Cancel',height=1,width=12,bd=4,bg='#7ea04d',activebackground='#7ea04d').grid(row=4,column=2)
+
+Cancel_Pizza=Button(frame, text='Cancel',height=1,width=12,bd=4,bg='#7ea04d',activebackground='#7ea04d',command=cancel).grid(row=4,column=2)
 
 
 root.mainloop()
