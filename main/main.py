@@ -1,9 +1,13 @@
 from tkinter import *
+from tkinter import ttk
+from tkinter.ttk import Treeview
+import pymysql
 from PIL import ImageTk,Image
 import os
 import sys 
 from tkinter import messagebox
 from PIL import ImageTk,Image
+
 root = Tk()
 root.title("Pizza Corner!")
 root.geometry("1100x650+100+1")
@@ -12,86 +16,108 @@ root.resizable(False, False)
 root.iconbitmap('images/pizza.ico')
 
 myImg = ImageTk.PhotoImage(Image.open("images/Welcome.png"))
-my_label = Label(root, image=myImg)
-my_label.pack()
+#my_label = Label(root, image=myImg)
+#my_label.pack()
+
+########variables 
+Id_var=StringVar()
+Name_var=StringVar()
+Address_var=StringVar()
+Type_var=StringVar()
+Mobile_var=StringVar()
+Email_var=StringVar()
 
 frame = LabelFrame(root, text='Order Your Pizza!', font='Lora', padx=20, pady=20, bd=4, relief=GROOVE)
-frame.place(x=170, y=120, width=400, height=330)
+frame.place(x=70, y=60, width=390, height=310)
+#####################table#########3
+frame1= LabelFrame(root, text='', font='Lora', padx=20, pady=20, bd=4, relief=GROOVE)
+frame1.place(x=490, y=70, width=550, height=430)
 
-frame2 = LabelFrame(root, text='Track Your Order', font='Lora', padx=50, pady=20, bd=4)
-frame2.place(x=620, y=120, width=320, height=140)
+scrollY=Scrollbar(frame1,orient=VERTICAL)
+scrollX=Scrollbar(frame1,orient=HORIZONTAL)
+table= Treeview(frame1,columns=("Id","Name","Address","Size","Mobile","Email"),xscrollcommand=scrollX.set,yscrollcommand=scrollY.set)
+scrollX.pack(side=BOTTOM,fill=X)
+scrollY.pack(side=RIGHT,fill=Y)
+scrollX.config(command=table.xview)
+scrollY.config(command=table.yview)
+table.heading("Id",text="ID")
+table.heading("Name",text="NAME")
+table.heading("Address",text="ADDRESS")
+table.heading("Size",text="SIZE")
+table.heading("Mobile",text="MOBILE")
+table.heading("Email",text="EMAIL ")
+table['show']='headings'
+table.column("Id",width=50)
+table.column("Name",width=100)
+table.column("Address",width=150)
+table.column("Size",width=100)
+table.column("Mobile",width=100)
+table.column("Email",width=100)
+table.pack(fill=BOTH,expand=1)
+
+
+frame2 = LabelFrame(root, text='Track Your Order', font='Lora', padx=50, pady=10, bd=4)
+frame2.place(x=70, y=380, width=390, height=120)
 
 frame3 = LabelFrame(root, text='Cancel Order', font='Lora', padx=50, pady=10, bd=4)
-frame3.place(x=620, y=280, width=320, height=170)
+frame3.place(x=70, y=500, width=390, height=120)
 
 frame4 = LabelFrame(root, text='Vendor Corner', font='Lora', padx=50, pady=25, bd=4)
-frame4.place(x=170, y=500, width=776, height=130)
-###########order
+frame4.place(x=630, y=500, width=776, height=130)
 
-Name = Label(frame, text='Name', anchor=W).grid(row=0, column=0)
+
+
+###########order
+Id= Label(frame, text='Id', anchor=W).grid(row=0, column=0)
 free = Label(frame, text="   ").grid(row=0, column=1)
-n = Entry(frame)
+n = Entry(frame,textvariable=Id_var)
 n.grid(row=0, column=2)
 freerow = Label(frame, text=' ').grid(row=1, column=0)
 
+
+Name = Label(frame, text='Name', anchor=W).grid(row=2, column=0)
+free = Label(frame, text="   ").grid(row=2, column=1)
+n = Entry(frame,textvariable=Name_var)
+n.grid(row=2, column=2)
+freerow = Label(frame, text=' ').grid(row=3, column=0)
+
 #address
-Address = Label(frame, text='Address').grid(row=2, column=0)
-free1 = Label(frame, text="   ").grid(row=2, column=1)
-a = Entry(frame)
-a.grid(row=2, column=2)
-freerow2 = Label(frame, text=" ").grid(row=3, column=0)
+Address = Label(frame, text='Address').grid(row=4, column=0)
+free1 = Label(frame, text="   ").grid(row=4, column=1)
+a = Entry(frame,textvariable=Id_Address)
+a.grid(row=4, column=2)
+freerow2 = Label(frame, text=" ").grid(row=5, column=0)
+
+
 
 #type
-PizzaType = Label(frame, text="Pizza Type").grid(row=4, column=0)
-free2 = Label(frame, text=" ").grid(row=4, column=1)
-p_type = StringVar()
-small = Radiobutton(frame, text='Small', variable= p_type, value="Small").grid(row=4, column=2)
-Medium = Radiobutton(frame, text='Medium', variable=p_type, value="Medium").grid(row=4, column=3)
-Large = Radiobutton(frame, text='Large', variable=p_type, value="Large").grid(row=4, column=4)
-freerow3 = Label(frame, text=" ").grid(row=5, column=0)
-
-#mobile
-Mobile = Label(frame, text='Mobile').grid(row=6, column=0)
-free3 = Label(frame, text="   ").grid(row=6, column=1)
-m = Entry(frame)
-m.grid(row=6, column=2)
+PizzaType = Label(frame, text=" Type").grid(row=6, column=0)
+free2 = Label(frame, text=" ")
+type=ttk.Combobox(frame,textvariable=Type_var,text="Pizza Type",state='readonly')
+type['values']=("Small","Medium","Large")
+type.grid(row=6, column=2)
 freerow4 = Label(frame, text="").grid(row=7, column=0)
 
+#mobile
+Mobile = Label(frame, text='Mobile').grid(row=8, column=0)
+free3 = Label(frame, text="   ").grid(row=8, column=1)
+m = Entry(frame,textvariable=Mobile_var)
+m.grid(row=8, column=2)
+freerow4 = Label(frame, text="").grid(row=9, column=0)
+
 #email
-Email = Label(frame, text='E-mail').grid(row=8, column=0)
-free4 = Label(frame, text="").grid(row=8, column=1)
-e = Entry(frame)
-e.grid(row=8, column=2)
-freerow5 = Label(frame, text="").grid(row=9, column=0)
-free5 = Label(frame, text="").grid(row=10, column=0)
-free5 = Label(frame, text="").grid(row=10, column=1)
+Email = Label(frame, text='E-mail').grid(row=10, column=0)
+free4 = Label(frame, text="").grid(row=10, column=1)
+e = Entry(frame,textvariable=Email_var)
+e.grid(row=10, column=2)
+freerow5 = Label(frame, text="").grid(row=11, column=0)
+free5 = Label(frame, text="").grid(row=12, column=0)
+free5 = Label(frame, text="").grid(row=12, column=1)
 
-def order(name, address, email, mobile, p_type):
-	return ({
-		'Name': name,
-		'Address': address,
-		'Email': email,
-		'Mobile': mobile,
-		'P_type': p_type,
-		'Status': 'Pending'
-		})
-
-pizza_q = []
-
-Order_ID = 0
 
 #button
-def insert():
-	global Order_ID
-	n1 = n.get()
-	a1 = a.get()
-	m1 = m.get()
-	p1 = p_type.get()
-	e1 = e.get()
-	pizza_q.append(order(n1, a1, e1, m1, p1))
-	response = messagebox.showinfo("Order", f"Your order will be served soon : Order ID {Order_ID}")
-	Order_ID += 1
-	print(pizza_q)
+def insert(self):
+	con=pymysql.connect(host='localhost',user='root',password="root",database="pizza")
 
 Order_Pizza = Button(frame, text='Order', height=1, width=8, bd=4, bg='#7ea04d', activebackground='#7ea04d', command=insert).grid(row=10,column=2)
 
@@ -116,11 +142,7 @@ def track():
 Track_Pizza = Button(frame2, text='Track', height=1, width=12, bd=4, bg='#7ea04d', command=track, activebackground='#7ea04d').grid(row=2,column=2)
 
 ############Cancel
-Name = Label(frame3,text='Name', anchor=W).grid(row=0, column=0)
-free = Label(frame3, text="   ").grid(row=0, column=1)
-n4 = Entry(frame3)
-n4.grid(row=0, column=2)
-freerow = Label(frame3, text=' ').grid(row=1, column=0)
+
 
 Order_Id = Label(frame3, text='Order_Id').grid(row=2, column=0)
 free1 = Label(frame3, text="   ").grid(row=2, column=1)
@@ -128,8 +150,8 @@ a3 = Entry(frame3)
 a3.grid(row=2, column=2)
 freerow2 = Label(frame3, text=" ").grid(row=3, column=0)
 
-free5 = Label(frame3, text=" ").grid(row=4, column=0)
-free5 = Label(frame3, text="").grid(row=4, column=1)
+#free5 = Label(frame3, text=" ").grid(row=4, column=0)
+#free5 = Label(frame3, text="").grid(row=4, column=1)
 
 cancel_count = 0
 def cancel():
