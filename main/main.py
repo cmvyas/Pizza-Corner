@@ -84,7 +84,7 @@ freerow = Label(frame, text=' ').grid(row=3, column=0)
 #address
 Address = Label(frame, text='Address').grid(row=4, column=0)
 free1 = Label(frame, text="   ").grid(row=4, column=1)
-a = Entry(frame,textvariable=Id_Address)
+a = Entry(frame,textvariable=Address_var)
 a.grid(row=4, column=2)
 freerow2 = Label(frame, text=" ").grid(row=5, column=0)
 
@@ -116,8 +116,16 @@ free5 = Label(frame, text="").grid(row=12, column=1)
 
 
 #button
-def insert(self):
-	con=pymysql.connect(host='localhost',user='root',password="root",database="pizza")
+def insert():
+	con=pymysql.connect(host='localhost',user='root',password="",database="pizzacorner")
+	cur=con.cursor()
+	cur.execute("insert into orderpizza values(%s,%s,%s,%s,%s,%s)",(Id_var.get(),Name_var.get(),Address_var.get(),Type_var.get(),Mobile_var.get(),Email_var.get()))
+	con.commit()
+	
+	con.close()
+
+
+
 
 Order_Pizza = Button(frame, text='Order', height=1, width=8, bd=4, bg='#7ea04d', activebackground='#7ea04d', command=insert).grid(row=10,column=2)
 
